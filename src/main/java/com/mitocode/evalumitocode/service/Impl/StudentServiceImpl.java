@@ -25,7 +25,6 @@ public class StudentServiceImpl extends CRUDImpl<Student, Integer> implements IS
 
     @Override
     public Student save(Student student) throws Exception {
-        // Puedes añadir lógica de validación adicional aquí si es necesario
         return super.save(student);
     }
 
@@ -34,6 +33,6 @@ public class StudentServiceImpl extends CRUDImpl<Student, Integer> implements IS
         return repo.findAll()
                 .stream()
                 .sorted(Comparator.comparing(Student::getAge).reversed())
-                .toList(); // Java 16+
+                .toList();
     }
 }
