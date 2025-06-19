@@ -26,19 +26,16 @@ public class MatriculaServiceImpl extends CRUDImpl<Matricula, Integer> implement
 
     @Override
     public Matricula save(Matricula matricula) throws Exception {
-        // Puedes añadir lógica de validación adicional aquí si es necesario
         return super.save(matricula);
     }
 
     @Override
     public Map<String, List<String>> getCoursesWithStudents() {
-        return repo.findAll().stream() // List<Matricula>
-                .map(Matricula::getDetails) // Stream<List<MatriculaDetail>>
-                .flatMap(Collection::stream) // Stream<MatriculaDetail>
-                .collect(Collectors.groupingBy(
-                        d -> d.getCourse().getName(),                // Clave: nombre del curso
-                        Collectors.mapping(
-                                d -> d.getMatricula().getStudent().getName(), // Valor: nombre del estudiante
+        return repo.findAll().stream()
+                .map(Matricula::getDetails) 
+                .flatMap(Collection::stream) 
+                .collect(Collectors.groupingBy(d -> d.getCourse().getName(),Collectors.mapping(
+                                d -> d.getMatricula().getStudent().getName(), 
                                 Collectors.toList()
                         )
                 ));
